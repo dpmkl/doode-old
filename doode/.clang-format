@@ -1,0 +1,12 @@
+---
+AccessModifierOffset: '-4'
+AllowShortIfStatementsOnASingleLine: 'false'
+AllowShortLoopsOnASingleLine: 'false'
+IndentWidth: '4'
+Language: Cpp
+PointerAlignment: Left
+Standard: Cpp11
+TabWidth: '4'
+UseTab: Never
+
+...

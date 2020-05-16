@@ -1,0 +1,9 @@
+[submodule "entt"]
+	path = entt
+	url = https://github.com/skypjack/entt.git
+[submodule "SFML"]
+	path = SFML
+	url = https://github.com/SFML/SFML.git
+[submodule "spdlog"]
+	path = spdlog
+	url = https://github.com/gabime/spdlog.git
