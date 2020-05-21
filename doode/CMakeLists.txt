@@ -30,5 +30,5 @@ set(LIBS
 )
 
 add_executable(doode ${SRC})
-target_compile_options(doode PUBLIC -Wall -Wextra -Werror)
+target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
 target_link_libraries(doode ${LIBS})
