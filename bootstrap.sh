@@ -7,7 +7,7 @@ fi
 
 mkdir $BUILD_DIR
 pushd $BUILD_DIR
-cmake -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 .. 
+cmake -GNinja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DCMAKE_BUILD_TYPE=RelWithDebInfo .. 
 ninja
 cp compile_commands.json .. 
 popd

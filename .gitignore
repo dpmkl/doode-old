@@ -1,3 +1,4 @@
 .clangd
 build
 bin
+compile_commands.json

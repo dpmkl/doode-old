@@ -1,8 +1,8 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_EXTENSIONS OFF)
+set(CMAKE_CXX_EXTENSIONS ON)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
@@ -12,4 +12,22 @@ include_directories(
     ../spdlog/include
 )
 
-add_executable(doode src/main.cpp)
+link_directories(CMAKE_LIBRARY_OUTPUT_DIRECTORY)
+
+set(SRC 
+    src/main.cpp
+    src/Engine.cpp
+    src/Scene.cpp
+    src/scenes/DummyScene.cpp
+    src/scenes/GameScene.cpp
+)
+
+set(LIBS 
+    sfml-graphics
+    sfml-system
+    sfml-window
+    spdlog
+)
+
+add_executable(doode ${SRC})
+target_link_libraries(doode ${LIBS})
