@@ -6,6 +6,10 @@
 namespace doode {
 
 class GameScene : public Scene {
+public:
+    GameScene() = default;
+    ~GameScene() override = default;
+
 protected:
     void updateActive(f32 p_delta) override;
 

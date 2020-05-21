@@ -7,9 +7,11 @@
 
 namespace doode {
 
-void GameScene::updateActive(const f32 p_delta) { spdlog::info("Game Active"); }
+void GameScene::updateActive(const f32 /*p_delta*/) {
+    spdlog::info("Game Active");
+}
 
-void GameScene::prepareProc(std::unique_ptr<SceneContext> p_context) {
+void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
     for (i32 i = 0; i < 3; ++i) {
         spdlog::info("Loading game ...");
         std::this_thread::sleep_for(std::chrono::milliseconds(500));

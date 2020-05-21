@@ -34,6 +34,7 @@ struct SceneTransition {
 class Scene {
 public:
     Scene();
+    virtual ~Scene();
 
     auto getState() -> SceneState;
 
@@ -46,17 +47,17 @@ protected:
     void changeScene(const std::string& p_name,
                      std::unique_ptr<SceneContext> p_context);
 
-    virtual void eventsLoading(const sf::Event& p_event) {}
-    virtual void eventsActive(const sf::Event& p_event) {}
-    virtual void eventsUnloading(const sf::Event& p_event) {}
+    virtual void eventsLoading(const sf::Event& /*p_event*/) {}
+    virtual void eventsActive(const sf::Event& /*p_event*/) {}
+    virtual void eventsUnloading(const sf::Event& /*p_event*/) {}
 
-    virtual void updateLoading(f32 p_delta) {}
-    virtual void updateActive(f32 p_delta) {}
-    virtual void updateUnloading(f32 p_delta) {}
+    virtual void updateLoading(f32 /*p_delta*/) {}
+    virtual void updateActive(f32 /*p_delta*/) {}
+    virtual void updateUnloading(f32 /*p_delta*/) {}
 
-    virtual void renderLoading(sf::RenderTarget& p_renderTarget) {}
-    virtual void renderActive(sf::RenderTarget& p_renderTarget) {}
-    virtual void renderUnloading(sf::RenderTarget& p_renderTarget) {}
+    virtual void renderLoading(sf::RenderTarget& /*p_renderTarget*/) {}
+    virtual void renderActive(sf::RenderTarget& /*p_renderTarget*/) {}
+    virtual void renderUnloading(sf::RenderTarget& /*p_renderTarget*/) {}
 
     virtual void prepareProc(std::unique_ptr<SceneContext> p_context);
     virtual void cleanupProc();

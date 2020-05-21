@@ -7,7 +7,7 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-auto main(i32 argc, char** argv) -> i32 {
+auto main(i32 /*argc*/, char* * /*argv*/) -> i32 {
     spdlog::set_pattern("%t %+");
     auto dummy = std::make_shared<doode::DummyScene>();
     auto game = std::make_shared<doode::GameScene>();

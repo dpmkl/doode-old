@@ -6,6 +6,10 @@
 namespace doode {
 
 class DummyScene : public Scene {
+public:
+    DummyScene() = default;
+    ~DummyScene() override = default;
+
 protected:
     void updateActive(f32 p_delta) override;
 

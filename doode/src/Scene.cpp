@@ -7,6 +7,8 @@ namespace doode {
 
 Scene::Scene() : m_state(SceneState::Hello), m_transition(std::nullopt) {}
 
+Scene::~Scene() {}
+
 auto Scene::getState() -> SceneState {
     SceneState result;
     const std::lock_guard<std::mutex> lock(m_stateMtx);
@@ -81,7 +83,9 @@ void Scene::changeScene(const std::string& p_name,
     cleanup();
 }
 
-void Scene::prepareProc(std::unique_ptr<SceneContext> p_context) { setReady(); }
+void Scene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
+    setReady();
+}
 
 void Scene::cleanupProc() { setClean(); }
 
