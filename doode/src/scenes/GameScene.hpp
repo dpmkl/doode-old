@@ -22,7 +22,6 @@ protected:
     void cleanupProc() override;
 
 private:
-    entt::registry m_ecs;
     std::vector<std::unique_ptr<RenderSystemBase>> m_renderSystems;
     std::vector<std::unique_ptr<UpdateSystemBase>> m_updateSystems;
 };

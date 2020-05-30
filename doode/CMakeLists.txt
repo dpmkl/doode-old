@@ -21,6 +21,7 @@ set(SRC
     src/Scene.cpp
     src/scenes/DummyScene.cpp
     src/scenes/GameScene.cpp
+    src/systems/Box2dRenderSystem.cpp
     src/utility/Maze.cpp
 )
 
@@ -32,6 +33,14 @@ set(LIBS
     box2d
 )
 
+
+
 add_executable(doode ${SRC})
-target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
+
+if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
+else(CMAKE_BUILD_TYPE STREQUAL "Release")
+    target_compile_options(doode PUBLIC -Wall -Wextra -Wpedantic)
+endif(CMAKE_BUILD_TYPE STREQUAL "Release")
+
 target_link_libraries(doode ${LIBS})

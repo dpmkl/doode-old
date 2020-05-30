@@ -16,15 +16,14 @@ void GameScene::addUpdateSystem(std::unique_ptr<UpdateSystemBase> p_system) {
 }
 
 void GameScene::updateActive(const f32 p_delta) {
-    auto& ecs = Services::Ecs::ref();
     for (auto& system : m_updateSystems) {
-        system->update(ecs, p_delta);
+        system->update(p_delta, Services::Ecs::ref());
     }
 }
 
 void GameScene::renderActive(sf::RenderTarget& p_renderTarget) {
     for (auto& system : m_renderSystems) {
-        system->render(p_renderTarget);
+        system->render(p_renderTarget, Services::Ecs::ref());
     }
 }
 
