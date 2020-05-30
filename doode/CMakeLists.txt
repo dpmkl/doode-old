@@ -10,6 +10,7 @@ include_directories(
     ../entt/single_include
     ../SFML/include
     ../spdlog/include
+    ../box2d/include
 )
 
 link_directories(CMAKE_LIBRARY_OUTPUT_DIRECTORY)
@@ -28,6 +29,7 @@ set(LIBS
     sfml-system
     sfml-window
     spdlog
+    box2d
 )
 
 add_executable(doode ${SRC})

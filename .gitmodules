@@ -7,3 +7,6 @@
 [submodule "spdlog"]
 	path = spdlog
 	url = https://github.com/gabime/spdlog.git
+[submodule "box2d"]
+	path = box2d
+	url = https://github.com/erincatto/box2d.git
