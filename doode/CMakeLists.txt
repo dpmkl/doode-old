@@ -20,6 +20,7 @@ set(SRC
     src/Scene.cpp
     src/scenes/DummyScene.cpp
     src/scenes/GameScene.cpp
+    src/utility/Maze.cpp
 )
 
 set(LIBS 

@@ -1,5 +1,8 @@
 #include "Maze.hpp"
+#include "SFML/Graphics/Color.hpp"
+#include "SFML/Graphics/Image.hpp"
 #include <random>
+#include <spdlog/spdlog.h>
 
 namespace doode {
 
@@ -49,7 +52,7 @@ void Maze::generate(u32 p_seed, f32 p_bias) {
     }
     for (u32 col = 0; col < m_width; ++col) {
         if (col != m_width - 1 && col + 1 != r[col] &&
-            (col = r[col] || dis(rand) < p_bias)) {
+            (col == r[col] || dis(rand) < p_bias)) {
             r[l[col + 1]] = r[col];
             l[r[col]] = l[col + 1];
             r[col] = col + 1;
@@ -63,6 +66,38 @@ void Maze::generate(u32 p_seed, f32 p_bias) {
         r[col] = col;
         l[col] = col;
     }
+}
+
+auto Maze::render() const -> sf::Image {
+    sf::Image maze;
+    maze.create(m_width * 8, m_height * 8, sf::Color::White);
+    for (u32 row = 0; row < m_height; ++row) {
+        for (u32 col = 0; col < m_width; ++col) {
+            u8 val = at(col, row);
+            if ((val & NORTH) == NORTH) {
+                for (u32 i = 0; i < 8; ++i) {
+                    maze.setPixel(col * 8 + i, row * 8, sf::Color::Black);
+                }
+            }
+            if ((val & SOUTH) == SOUTH) {
+                for (u32 i = 0; i < 8; ++i) {
+                    maze.setPixel(col * 8 + i, row * 8 + 7, sf::Color::Red);
+                }
+            }
+            if ((val & EAST) == EAST) {
+                for (u32 i = 0; i < 8; ++i) {
+                    maze.setPixel(col * 8 + 7, row * 8 + i, sf::Color::Green);
+                }
+            }
+            if ((val & WEST) == WEST) {
+                for (u32 i = 0; i < 8; ++i) {
+                    maze.setPixel(col * 8, row * 8 + i, sf::Color::Blue);
+                }
+            }
+        }
+    }
+    maze.saveToFile("maze.png");
+    return maze;
 }
 
 void Maze::unset(u32 p_x, u32 p_y, u8 p_cell) {
