@@ -1,4 +1,5 @@
 #include "GameScene.hpp"
+#include "../Services.hpp"
 #include "../Types.hpp"
 #include <chrono>
 #include <memory>
@@ -15,9 +16,9 @@ void GameScene::addUpdateSystem(std::unique_ptr<UpdateSystemBase> p_system) {
 }
 
 void GameScene::updateActive(const f32 p_delta) {
-    spdlog::info("Game Active");
+    auto& ecs = Services::Ecs::ref();
     for (auto& system : m_updateSystems) {
-        system->update(m_ecs, p_delta);
+        system->update(ecs, p_delta);
     }
 }
 
@@ -32,6 +33,10 @@ void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
         spdlog::info("Loading game ...");
         std::this_thread::sleep_for(std::chrono::milliseconds(500));
     }
+
+    Services::Ecs::set();
+    Services::Physics::set(b2Vec2(0, -9.8f));
+
     setReady();
 }
 
