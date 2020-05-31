@@ -36,6 +36,8 @@ void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
     Services::Ecs::set();
     Services::Physics::set(b2Vec2(0, -9.8f));
 
+    setup();
+
     setReady();
 }
 
@@ -46,5 +48,7 @@ void GameScene::cleanupProc() {
     }
     setClean();
 }
+
+void GameScene::setup() {}
 
 } // namespace doode

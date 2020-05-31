@@ -21,6 +21,8 @@ protected:
     void prepareProc(std::unique_ptr<SceneContext> p_context) override;
     void cleanupProc() override;
 
+    virtual void setup();
+
 private:
     std::vector<std::unique_ptr<RenderSystemBase>> m_renderSystems;
     std::vector<std::unique_ptr<UpdateSystemBase>> m_updateSystems;
