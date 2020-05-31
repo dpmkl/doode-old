@@ -2,6 +2,7 @@
 #include "Types.hpp"
 #include "scenes/DummyScene.hpp"
 #include "scenes/GameScene.hpp"
+#include "scenes/LaboratoryScene.hpp"
 #include "spdlog/common.h"
 #include <entt/entt.hpp>
 #include <memory>
@@ -10,7 +11,7 @@
 auto main(i32 /*argc*/, char* * /*argv*/) -> i32 {
     spdlog::set_pattern("%t %+");
     auto dummy = std::make_shared<doode::DummyScene>();
-    auto game = std::make_shared<doode::GameScene>();
+    auto game = std::make_shared<doode::LaboratoryScene>();
     doode::Engine engine(dummy, {{"dummy", dummy}, {"game", game}});
     engine.run();
     return 0;

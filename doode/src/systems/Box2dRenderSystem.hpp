@@ -19,8 +19,6 @@ public:
     static auto b2ToSfColor(const b2Color& p_color, u8 p_alpha = 0xff)
         -> sf::Color;
 
-    static auto b2ToSfVector(const b2Vec2& p_vector) -> sf::Vector2f;
-
     void DrawPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
                      const b2Color& p_color) override;
     void DrawSolidPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
@@ -36,7 +34,7 @@ public:
                    const b2Color& p_color) override;
 
 private:
-    static constexpr f32 SCALE = 32.0F;
+    static constexpr f32 SCALE = 96.0F;
     sf::RenderTarget& m_renderTarget;
 };
 

@@ -1,6 +1,11 @@
 #include "GameScene.hpp"
+#include "../Physics.hpp"
 #include "../Services.hpp"
 #include "../Types.hpp"
+#include "../systems/PhysicsSystem.hpp"
+#include "box2d/b2_body.h"
+#include "box2d/b2_polygon_shape.h"
+#include <box2d/box2d.h>
 #include <chrono>
 #include <memory>
 #include <spdlog/spdlog.h>
@@ -49,6 +54,18 @@ void GameScene::cleanupProc() {
     setClean();
 }
 
-void GameScene::setup() {}
+void GameScene::setup() { addUpdateSystem(std::make_unique<PhysicsSystem>()); }
+
+void GameScene::createStaticBlock(const sf::Vector2f& p_position,
+                                  const sf::Vector2f& p_size) {
+    auto size = Physics::toBox2d(p_size / 2.0f);
+    b2BodyDef bodyDef;
+    bodyDef.type = b2_staticBody;
+    bodyDef.position = Physics::toBox2d(p_position);
+    b2PolygonShape bodyShape;
+    bodyShape.SetAsBox(size.x, size.y);
+    auto body = Services::Physics::ref().CreateBody(&bodyDef);
+    body->CreateFixture(&bodyShape, 0.0f);
+}
 
 } // namespace doode

@@ -19,9 +19,12 @@ set(SRC
     src/main.cpp
     src/Engine.cpp
     src/Scene.cpp
+    src/Physics.cpp
     src/scenes/DummyScene.cpp
     src/scenes/GameScene.cpp
+    src/scenes/LaboratoryScene.cpp
     src/systems/Box2dRenderSystem.cpp
+    src/systems/PhysicsSystem.cpp
     src/utility/Maze.cpp
 )
 

@@ -3,6 +3,7 @@
 
 #include "../Scene.hpp"
 #include "../systems/SystemBase.hpp"
+#include "SFML/System/Vector2.hpp"
 
 namespace doode {
 
@@ -22,6 +23,9 @@ protected:
     void cleanupProc() override;
 
     virtual void setup();
+
+    void createStaticBlock(const sf::Vector2f& p_position,
+                           const sf::Vector2f& p_size);
 
 private:
     std::vector<std::unique_ptr<RenderSystemBase>> m_renderSystems;
