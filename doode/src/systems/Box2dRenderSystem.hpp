@@ -2,17 +2,24 @@
 #define __DOODE_BOX2DRENDERSYSTEM_HPP__
 
 #include "../Types.hpp"
+#include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/RenderTarget.hpp"
+#include "SFML/System/Vector2.hpp"
 #include "SystemBase.hpp"
 #include "box2d/b2_draw.h"
+#include "box2d/b2_math.h"
 #include <box2d/box2d.h>
 
 namespace doode {
 
 class Box2dRenderer : public b2Draw {
 public:
-    Box2dRenderer(sf::RenderTarget& p_renderTarget)
-        : m_renderTarget(p_renderTarget) {}
+    Box2dRenderer(sf::RenderTarget& p_renderTarget);
+
+    static auto b2ToSfColor(const b2Color& p_color, u8 p_alpha = 0xff)
+        -> sf::Color;
+
+    static auto b2ToSfVector(const b2Vec2& p_vector) -> sf::Vector2f;
 
     void DrawPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
                      const b2Color& p_color) override;
@@ -28,14 +35,12 @@ public:
     void DrawPoint(const b2Vec2& p_p, f32 p_size,
                    const b2Color& p_color) override;
 
-    void update(sf::RenderTarget& p_renderTarget);
-
 private:
+    static constexpr f32 SCALE = 32.0F;
     sf::RenderTarget& m_renderTarget;
 };
 
 struct Box2dRenderSystem : RenderSystemBase {
-    Box2dRenderSystem();
     void render(sf::RenderTarget& p_renderTarget,
                 entt::registry& p_ecs) override;
 
