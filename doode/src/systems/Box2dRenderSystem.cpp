@@ -60,6 +60,7 @@ void Box2dRenderer::DrawCircle(const b2Vec2& p_center, f32 p_radius,
     circle.setPosition(Physics::toSfml(p_center));
     circle.setFillColor(sf::Color::Transparent);
     circle.setOutlineColor(b2ToSfColor(p_color));
+    circle.setOutlineThickness(1.0F);
     m_renderTarget.draw(circle);
 }
 void Box2dRenderer::DrawSolidCircle(const b2Vec2& p_center, f32 p_radius,
@@ -70,6 +71,7 @@ void Box2dRenderer::DrawSolidCircle(const b2Vec2& p_center, f32 p_radius,
     circle.setPosition(Physics::toSfml(p_center));
     circle.setFillColor(sf::Color::Transparent);
     circle.setOutlineColor(b2ToSfColor(p_color));
+    circle.setOutlineThickness(1.0F);
 
     b2Vec2 endPoint = p_center + p_radius * p_axis;
     sf::Vertex line[2] = {

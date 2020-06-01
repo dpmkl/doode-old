@@ -38,7 +38,8 @@ private:
     sf::RenderTarget& m_renderTarget;
 };
 
-struct Box2dRenderSystem : RenderSystemBase {
+class Box2dRenderSystem : public RenderSystemBase {
+public:
     void render(sf::RenderTarget& p_renderTarget,
                 entt::registry& p_ecs) override;
 

@@ -11,6 +11,8 @@ void LaboratoryScene::setup() {
     addRenderSystem(std::make_unique<Box2dRenderSystem>());
 
     createMaze(17, 0xcafeaffe);
+
+    createPlayer();
 }
 
 } // namespace doode

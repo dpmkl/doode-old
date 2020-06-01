@@ -25,7 +25,9 @@ set(SRC
     src/scenes/LaboratoryScene.cpp
     src/systems/Box2dRenderSystem.cpp
     src/systems/PhysicsSystem.cpp
+    src/systems/CharacterControlSystem.cpp
     src/utility/Maze.cpp
+    src/utility/Keyboard.cpp
 )
 
 set(LIBS 
