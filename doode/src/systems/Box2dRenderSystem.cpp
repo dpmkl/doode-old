@@ -48,7 +48,8 @@ void Box2dRenderer::DrawSolidPolygon(const b2Vec2* p_vertices,
         poly.setPoint(i, vec);
     }
     poly.setFillColor(b2ToSfColor(p_color, 60));
-    poly.setOutlineColor(b2ToSfColor(p_color));
+    poly.setOutlineThickness(1);
+    poly.setOutlineColor(sf::Color::White);
     m_renderTarget.draw(poly);
 }
 

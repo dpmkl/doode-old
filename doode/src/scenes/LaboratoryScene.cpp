@@ -10,7 +10,7 @@ void LaboratoryScene::setup() {
     GameScene::setup();
     addRenderSystem(std::make_unique<Box2dRenderSystem>());
 
-    createStaticBlock(sf::Vector2f(200, 200), sf::Vector2f(100, 100));
+    createMaze(17, 0xcafeaffe);
 }
 
 } // namespace doode

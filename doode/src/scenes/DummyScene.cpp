@@ -13,18 +13,12 @@ void DummyScene::updateActive(const f32 /*p_delta*/) {
 }
 
 void DummyScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
-    for (i32 i = 0; i < 3; ++i) {
-        spdlog::info("Loading dummy ...");
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
+    spdlog::info("Preparing dummy ...");
     setReady();
 }
 
 void DummyScene::cleanupProc() {
-    for (i32 i = 0; i < 3; ++i) {
-        spdlog::info("Cleaning up dummy ...");
-        std::this_thread::sleep_for(std::chrono::milliseconds(500));
-    }
+    spdlog::info("Cleaning up dummy ...");
     setClean();
 }
 

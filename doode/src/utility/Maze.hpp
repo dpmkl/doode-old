@@ -1,5 +1,5 @@
-#ifndef __DOODE_ENGINE_HPP__
-#define __DOODE_ENGINE_HPP__
+#ifndef __DOODE_MAZE_HPP__
+#define __DOODE_MAZE_HPP__
 
 #include "../Types.hpp"
 #include "SFML/Graphics/Image.hpp"
@@ -16,9 +16,13 @@ public:
     static constexpr u8 EAST = 0x8;
     static constexpr u8 ALL = 0xF;
 
-    Maze(u32 p_width, u32 p_height);
+    Maze();
+
+    void init(u32 p_width, u32 p_height);
 
     auto at(u32 p_x, u32 p_y) const -> u8;
+
+    auto has(u32 p_x, u32 p_y, u8 p_direction) const -> bool;
 
     void generate(u32 p_seed, f32 p_bias = 0.5F);
 
@@ -26,8 +30,8 @@ public:
 
 private:
     void unset(u32 p_x, u32 p_y, u8 p_cell);
-    const u32 m_width;
-    const u32 m_height;
+    u32 m_width;
+    u32 m_height;
     std::vector<u8> m_cells;
 };
 

@@ -6,8 +6,12 @@
 
 namespace doode {
 
-Maze::Maze(u32 p_width, u32 p_height)
-    : m_width(p_width), m_height(p_height), m_cells(p_width * p_height) {
+Maze::Maze() {}
+
+void Maze::init(u32 p_width, u32 p_height) {
+    m_width = p_width;
+    m_height = p_height;
+    m_cells.resize(p_width * p_height);
     for (u32 i = 0; i < p_width * p_height; ++i) {
         m_cells[i] = ALL;
     }
@@ -15,6 +19,10 @@ Maze::Maze(u32 p_width, u32 p_height)
 
 auto Maze::at(u32 p_x, u32 p_y) const -> u8 {
     return m_cells[p_y * m_width + p_x];
+}
+
+auto Maze::has(u32 p_x, u32 p_y, u8 p_direction) const -> bool {
+    return (at(p_x, p_y) & p_direction) == p_direction;
 }
 
 void Maze::generate(u32 p_seed, f32 p_bias) {
