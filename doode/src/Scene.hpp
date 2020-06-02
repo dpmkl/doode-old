@@ -23,7 +23,7 @@ enum class SceneState {
 
 struct SceneContext {
     std::map<std::string, std::variant<i32, u32, f32, bool, std::string>>
-        m_params;
+        params;
 };
 
 struct SceneTransition {

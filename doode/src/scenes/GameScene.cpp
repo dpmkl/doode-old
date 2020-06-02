@@ -3,6 +3,8 @@
 #include "../Services.hpp"
 #include "../Types.hpp"
 #include "../components/CharacterControlComponent.hpp"
+#include "../components/Tags.hpp"
+#include "../systems/CameraFollowSystem.hpp"
 #include "../systems/CharacterControlSystem.hpp"
 #include "../systems/PhysicsSystem.hpp"
 #include "SFML/System/Vector2.hpp"
@@ -78,6 +80,8 @@ void GameScene::cleanupProc() {
 void GameScene::setup() {
     addUpdateSystem(std::make_unique<PhysicsSystem>());
     addUpdateSystem(std::make_unique<CharacterControlSystem>());
+
+    addRenderSystem(std::make_unique<CameraFollowSystem>());
 }
 
 void GameScene::createMaze(u32 p_size, u32 p_seed) {
@@ -189,6 +193,7 @@ void GameScene::createPlayer() {
     auto& ecs = Services::Ecs::ref();
     auto entity = ecs.create();
     ecs.emplace<CharacterControlComponent>(entity, character);
+    ecs.emplace<CameraFollow>(entity);
 }
 
 void GameScene::createStaticBlock(const sf::Vector2f& p_position,
