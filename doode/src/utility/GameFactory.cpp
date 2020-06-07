@@ -1,6 +1,7 @@
 #include "GameFactory.hpp"
 #include "../Types.hpp"
 #include "../components/CharacterControlComponent.hpp"
+#include "../components/MovingPlatformComponent.hpp"
 #include "../components/PhysicsComponent.hpp"
 #include "../components/Tags.hpp"
 #include "Maze.hpp"
@@ -30,30 +31,30 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     auto body = p_world.CreateBody(&def);
 
     // Torso
-    static CollisionInfo torsoCollisionInfo{CollisionType::Body, p_entity,
-                                            "character"};
+    CollisionInfo* torsoCollisionInfo =
+        new CollisionInfo{CollisionType::Body, p_entity, "character"};
     b2PolygonShape poly;
     poly.SetAsBox(size.x, size.y / 2);
     b2FixtureDef fixture;
     fixture.shape = &poly;
     fixture.density = 1;
-    fixture.userData = &torsoCollisionInfo;
+    fixture.userData = torsoCollisionInfo;
     body->CreateFixture(&fixture);
 
     // Wheel
-    static CollisionInfo wheelCollisionInfo{CollisionType::Feet, p_entity,
-                                            "character"};
+    CollisionInfo* wheelCollisionInfo =
+        new CollisionInfo{CollisionType::Feet, p_entity, "character"};
     b2CircleShape wheel;
     wheel.m_radius = size.x * 0.8F;
     wheel.m_p.Set(0, size.y * 0.40F);
     fixture.shape = &wheel;
-    fixture.userData = &wheelCollisionInfo;
+    fixture.userData = wheelCollisionInfo;
     body->CreateFixture(&fixture);
 
     // Sensor left
-    static CollisionInfo leftSensorCollisionInfo{CollisionType::SensorLeft,
-                                                 p_entity, "character"};
-    fixture.userData = &leftSensorCollisionInfo;
+    CollisionInfo* leftSensorCollisionInfo =
+        new CollisionInfo{CollisionType::SensorLeft, p_entity, "character"};
+    fixture.userData = leftSensorCollisionInfo;
     fixture.isSensor = true;
     fixture.density = 0;
     wheel.m_radius = size.y / 3;
@@ -64,9 +65,9 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     body->CreateFixture(&fixture);
 
     // Sensor right
-    static CollisionInfo rightSensorCollisionInfo{CollisionType::SensorRight,
-                                                  p_entity, "character"};
-    fixture.userData = &rightSensorCollisionInfo;
+    CollisionInfo* rightSensorCollisionInfo =
+        new CollisionInfo{CollisionType::SensorRight, p_entity, "character"};
+    fixture.userData = rightSensorCollisionInfo;
     wheel.m_p.Set(x - (x / 2), size.y / -4);
     body->CreateFixture(&fixture);
     wheel.m_p.Set(x - (x / 2), size.y / 4);
@@ -106,11 +107,16 @@ void GameFactory::createPlatform(entt::registry& p_ecs, b2World& p_world,
     b2PolygonShape bodyShape;
     bodyShape.SetAsBox(size.x, size.y);
     auto body = p_world.CreateBody(&bodyDef);
-    body->CreateFixture(&bodyShape, 0.0f);
+    body->CreateFixture(&bodyShape, 0.0f)
+        ->SetUserData(
+            new CollisionInfo{CollisionType::Platform, entity, "platform"});
     p_ecs.emplace<PhysicsComponent>(entity, body);
     if (p_range != 0) {
+        auto upper = p_position;
+        auto lower = p_position + sf::Vector2f(0, p_range);
+        p_ecs.emplace<MovingPlatformComponent>(entity, 200, true, upper, lower);
     }
-}
+} // namespace doode
 
 auto GameFactory::createMaze(u32 p_size, u32 p_seed, b2World& p_world) -> Maze {
     if ((p_size % 2) != 1) {

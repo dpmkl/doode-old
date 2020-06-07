@@ -23,9 +23,10 @@ set(SRC
     src/scenes/GameScene.cpp
     src/scenes/LaboratoryScene.cpp
     src/systems/Box2dRenderSystem.cpp
-    src/systems/PhysicsSystem.cpp
     src/systems/CameraFollowSystem.cpp
     src/systems/CharacterControlSystem.cpp
+    src/systems/MovingPlatformSystem.cpp
+    src/systems/PhysicsSystem.cpp
     src/utility/ContactListener.cpp
     src/utility/GameFactory.cpp
     src/utility/Maze.cpp

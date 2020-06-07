@@ -17,7 +17,9 @@ public:
     void EndContact(b2Contact* p_contact) override;
 
 private:
-    void evaluateCharacter(CollisionInfo* p_info, bool p_value);
+    void handlePlatforms(CollisionInfo* p_infoA, CollisionInfo* p_infoB,
+                         bool p_value);
+    void handleCharacter(CollisionInfo* p_info, bool p_value);
 
     entt::registry& m_ecs;
 };

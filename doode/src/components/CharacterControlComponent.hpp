@@ -6,7 +6,9 @@
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_body.h"
 #include "box2d/b2_math.h"
+#include "spdlog/common.h"
 #include <box2d/box2d.h>
+#include <spdlog/spdlog.h>
 #include <string>
 
 namespace doode {
@@ -26,8 +28,16 @@ struct CharacterControlComponent {
     bool onRight;
     u32 jumpCount;
 
+    void setOnGround() {
+        onGround = true;
+        jumpCount = 0;
+        spdlog::info("On ground");
+    }
+
     void jump() {
-        if (onGround || jumpCount < 3) {
+        spdlog::info("Jumping: " + std::to_string(onGround) + " " +
+                     std::to_string(jumpCount));
+        if (onGround && jumpCount < 3) {
             ++jumpCount;
             auto force =
                 Physics::toBox2d(sf::Vector2f(0, JUMP_FORCE / jumpCount));

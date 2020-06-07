@@ -9,7 +9,7 @@
 
 namespace doode {
 
-enum class CollisionType { Body, Feet, SensorLeft, SensorRight };
+enum class CollisionType { Body, Feet, SensorLeft, SensorRight, Platform };
 
 struct CollisionInfo {
     CollisionType type;

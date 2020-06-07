@@ -5,6 +5,7 @@
 #include "../components/Tags.hpp"
 #include "../systems/CameraFollowSystem.hpp"
 #include "../systems/CharacterControlSystem.hpp"
+#include "../systems/MovingPlatformSystem.hpp"
 #include "../systems/PhysicsSystem.hpp"
 #include "../utility/ContactListener.hpp"
 #include "../utility/GameFactory.hpp"
@@ -78,6 +79,7 @@ void GameScene::cleanupProc() {
 void GameScene::setup() {
     addUpdateSystem(std::make_unique<PhysicsSystem>());
     addUpdateSystem(std::make_unique<CharacterControlSystem>());
+    addUpdateSystem(std::make_unique<MovingPlatformSystem>());
 
     addRenderSystem(std::make_unique<CameraFollowSystem>());
 }

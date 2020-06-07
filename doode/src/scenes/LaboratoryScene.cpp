@@ -18,9 +18,9 @@ void LaboratoryScene::setup() {
     auto maze = GameFactory::createMaze(17, 0xcafeaffe, world);
     setMaze(maze);
 
-    GameFactory::createPlatform(ecs, world, sf::Vector2f(0, 0), 0);
-
     GameFactory::createPlayer(ecs, world);
+
+    GameFactory::createPlatform(ecs, world, sf::Vector2f(0, -150), 300);
 }
 
 } // namespace doode
