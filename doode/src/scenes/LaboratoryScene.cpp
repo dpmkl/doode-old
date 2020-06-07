@@ -12,10 +12,13 @@ void LaboratoryScene::setup() {
     GameScene::setup();
     addRenderSystem(std::make_unique<Box2dRenderSystem>());
 
-    createMaze(17, 0xcafeaffe);
-
     auto& ecs = Services::Ecs::ref();
     auto& world = Services::Physics::ref();
+
+    auto maze = GameFactory::createMaze(17, 0xcafeaffe, world);
+    setMaze(maze);
+
+    GameFactory::createPlatform(ecs, world, sf::Vector2f(0, 0), 0);
 
     GameFactory::createPlayer(ecs, world);
 }

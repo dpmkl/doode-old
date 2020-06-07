@@ -31,14 +31,8 @@ protected:
     void cleanupProc() override;
 
     virtual void setup();
-
-    void createMaze(u32 p_size, u32 p_seed);
+    void setMaze(Maze p_maze);
     auto getMaze() const -> const Maze&;
-    void createStaticBlock(const sf::Vector2f& p_position,
-                           const sf::Vector2f& p_size);
-
-    static constexpr f32 WALL_WIDTH = 400.0F;
-    static constexpr f32 WALL_HEIGHT = WALL_WIDTH / 48.0F;
 
 private:
     Maze m_maze;
