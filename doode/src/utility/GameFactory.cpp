@@ -22,8 +22,8 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     auto body = p_world.CreateBody(&def);
 
     // Torso
-    static CollisionInfo torsoCollisionInfo{.type = CollisionType::Body,
-                                            .entity = p_entity};
+    static CollisionInfo torsoCollisionInfo{
+        .type = CollisionType::Body, .entity = p_entity, .klass = "character"};
     b2PolygonShape poly;
     poly.SetAsBox(size.x, size.y / 2);
     b2FixtureDef fixture;
@@ -33,8 +33,8 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     body->CreateFixture(&fixture);
 
     // Wheel
-    static CollisionInfo wheelCollisionInfo{.type = CollisionType::Feet,
-                                            .entity = p_entity};
+    static CollisionInfo wheelCollisionInfo{
+        .type = CollisionType::Feet, .entity = p_entity, .klass = "character"};
     b2CircleShape wheel;
     wheel.m_radius = size.x * 0.8F;
     wheel.m_p.Set(0, size.y * 0.40F);
@@ -43,8 +43,10 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     body->CreateFixture(&fixture);
 
     // Sensor left
-    static CollisionInfo leftSensorCollisionInfo{
-        .type = CollisionType::SensorLeft, .entity = p_entity};
+    static CollisionInfo leftSensorCollisionInfo{.type =
+                                                     CollisionType::SensorLeft,
+                                                 .entity = p_entity,
+                                                 .klass = "character"};
     fixture.userData = &leftSensorCollisionInfo;
     fixture.isSensor = true;
     fixture.density = 0;
@@ -57,7 +59,9 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
 
     // Sensor right
     static CollisionInfo rightSensorCollisionInfo{
-        .type = CollisionType::SensorRight, .entity = p_entity};
+        .type = CollisionType::SensorRight,
+        .entity = p_entity,
+        .klass = "character"};
     fixture.userData = &rightSensorCollisionInfo;
     wheel.m_p.Set(x - (x / 2), size.y / -4);
     body->CreateFixture(&fixture);

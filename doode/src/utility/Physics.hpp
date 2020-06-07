@@ -14,6 +14,14 @@ enum class CollisionType { Body, Feet, SensorLeft, SensorRight };
 struct CollisionInfo {
     CollisionType type;
     entt::entity entity;
+    std::string klass;
+};
+
+struct CollisionResult {
+    CollisionResult(entt::entity p_entity, const std::string& p_klass)
+        : entity(p_entity), klass(p_klass) {}
+    entt::entity entity;
+    std::string klass;
 };
 
 class Physics {

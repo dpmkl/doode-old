@@ -1,5 +1,6 @@
 #include "ContactListener.hpp"
 #include "../components/CharacterControlComponent.hpp"
+#include "../components/CollisionResponseComponent.hpp"
 #include "Physics.hpp"
 #include "box2d/b2_fixture.h"
 
@@ -13,7 +14,22 @@ void ContactListener::BeginContact(b2Contact* p_contact) {
     if (bodyA == nullptr && bodyB == nullptr) {
         return;
     } else if (bodyA != nullptr && bodyB != nullptr) {
-
+        auto infoA = static_cast<CollisionInfo*>(bodyA);
+        auto infoB = static_cast<CollisionInfo*>(bodyB);
+        if (m_ecs.has<CollisionResponseComponent>(infoA->entity)) {
+            m_ecs.get<CollisionResponseComponent>(infoA->entity)
+                .collisions.emplace_back(infoB->entity, infoB->klass);
+        } else {
+            m_ecs.emplace<CollisionResponseComponent>(infoA->entity)
+                .collisions.emplace_back(infoB->entity, infoB->klass);
+        }
+        if (m_ecs.has<CollisionResponseComponent>(infoB->entity)) {
+            m_ecs.get<CollisionResponseComponent>(infoB->entity)
+                .collisions.emplace_back(infoA->entity, infoA->klass);
+        } else {
+            m_ecs.emplace<CollisionResponseComponent>(infoB->entity)
+                .collisions.emplace_back(infoA->entity, infoA->klass);
+        }
     } else {
         auto body = bodyA != nullptr ? bodyA : bodyB;
         auto info = static_cast<CollisionInfo*>(body);
