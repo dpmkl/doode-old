@@ -12,6 +12,8 @@ namespace doode {
 namespace game {
 constexpr f32 WALL_WIDTH = 400.0F;
 constexpr f32 WALL_HEIGHT = WALL_WIDTH / 48.0F;
+constexpr f32 PLATFORM_WIDTH = WALL_WIDTH / 4.0F;
+constexpr f32 PLATFORM_HEIGHT = WALL_HEIGHT / 2.0F;
 } // namespace game
 
 class GameFactory {

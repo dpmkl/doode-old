@@ -98,7 +98,7 @@ void GameFactory::createPlatform(entt::registry& p_ecs, b2World& p_world,
                                  const sf::Vector2f& p_position,
                                  const f32 p_range) {
     auto entity = p_ecs.create();
-    auto dim = sf::Vector2f(WALL_WIDTH / 8, WALL_HEIGHT / 2);
+    auto dim = sf::Vector2f(PLATFORM_WIDTH, PLATFORM_HEIGHT);
     auto size = Physics::toBox2d(dim / 2.0f);
     b2BodyDef bodyDef;
     bodyDef.type = b2_kinematicBody;
