@@ -34,6 +34,9 @@ void Engine::run() {
         frameStart = std::chrono::high_resolution_clock::now();
         sf::Event event;
         while (m_window.pollEvent(event)) {
+            if (!m_window.hasFocus()) {
+                continue;
+            }
             if (event.type == sf::Event::Closed) {
                 m_window.close();
             }

@@ -14,8 +14,7 @@
 
 namespace doode {
 
-constexpr f32 WALL_WIDTH = 400.0F;
-constexpr f32 WALL_HEIGHT = WALL_WIDTH / 48.0F;
+using namespace doode::game;
 
 auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     -> b2Body* {
@@ -114,7 +113,8 @@ void GameFactory::createPlatform(entt::registry& p_ecs, b2World& p_world,
     if (p_range != 0) {
         auto upper = p_position;
         auto lower = p_position + sf::Vector2f(0, p_range);
-        p_ecs.emplace<MovingPlatformComponent>(entity, 200, true, upper, lower);
+        p_ecs.emplace<MovingPlatformComponent>(entity, 200.0F, true, upper,
+                                               lower, std::set<b2Body*>({}));
     }
 } // namespace doode
 

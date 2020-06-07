@@ -27,6 +27,7 @@ set(SRC
     src/systems/CharacterControlSystem.cpp
     src/systems/MovingPlatformSystem.cpp
     src/systems/PhysicsSystem.cpp
+    src/utility/ContactFilter.cpp
     src/utility/ContactListener.cpp
     src/utility/GameFactory.cpp
     src/utility/Maze.cpp

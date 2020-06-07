@@ -2,6 +2,7 @@
 #include "../components/CharacterControlComponent.hpp"
 #include "../components/CollisionResponseComponent.hpp"
 #include "../components/MovingPlatformComponent.hpp"
+#include "../components/PhysicsComponent.hpp"
 #include "Physics.hpp"
 #include "box2d/b2_fixture.h"
 
@@ -65,16 +66,25 @@ void ContactListener::handlePlatforms(CollisionInfo* p_infoA,
             p_infoA->type == CollisionType::Platform ? p_infoA : p_infoB;
         auto characterInfo =
             p_infoA->type == CollisionType::Feet ? p_infoA : p_infoB;
-        auto& platform =
-            m_ecs.get<MovingPlatformComponent>(platformInfo->entity);
+
         auto& character =
             m_ecs.get<CharacterControlComponent>(characterInfo->entity);
         if (p_value) {
-            platform.occupants.emplace(character.body);
             character.setOnGround();
+            character.onPlatform = true;
         } else {
-            platform.occupants.erase(character.body);
             character.onGround = false;
+            character.onPlatform = false;
+        }
+
+        if (m_ecs.has<MovingPlatformComponent>(platformInfo->entity)) {
+            auto& platform =
+                m_ecs.get<MovingPlatformComponent>(platformInfo->entity);
+            if (p_value) {
+                platform.occupants.emplace(character.body);
+            } else {
+                platform.occupants.erase(character.body);
+            }
         }
     }
 }

@@ -11,13 +11,22 @@ void CharacterControlSystem::update(f32 /*p_delta*/, entt::registry& p_ecs) {
             if (keyboard.isPressed(sf::Keyboard::Space)) {
                 p_character.jump();
             }
-            if (keyboard.isDown(sf::Keyboard::Left) && !p_character.onLeft) {
+            if ((keyboard.isDown(sf::Keyboard::Left) ||
+                 keyboard.isDown(sf::Keyboard::A)) &&
+                !p_character.onLeft) {
                 p_character.strafe(-1.F);
-            } else if (keyboard.isDown(sf::Keyboard::Right) &&
+            } else if ((keyboard.isDown(sf::Keyboard::Right) ||
+                        keyboard.isDown(sf::Keyboard::D)) &&
                        !p_character.onRight) {
                 p_character.strafe(1.0F);
             } else {
                 p_character.strafe(0.0F);
+            }
+            if (keyboard.isDown(sf::Keyboard::Down) ||
+                keyboard.isDown(sf::Keyboard::S)) {
+                p_character.drop();
+            } else {
+                p_character.dropping = false;
             }
         });
 }

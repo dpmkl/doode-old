@@ -9,6 +9,11 @@
 
 namespace doode {
 
+namespace game {
+constexpr f32 WALL_WIDTH = 400.0F;
+constexpr f32 WALL_HEIGHT = WALL_WIDTH / 48.0F;
+} // namespace game
+
 class GameFactory {
 public:
     static auto createCharacter(entt::entity p_entity, b2World& p_world)

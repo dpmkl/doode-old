@@ -7,12 +7,14 @@
 #include "../systems/CharacterControlSystem.hpp"
 #include "../systems/MovingPlatformSystem.hpp"
 #include "../systems/PhysicsSystem.hpp"
+#include "../utility/ContactFilter.hpp"
 #include "../utility/ContactListener.hpp"
 #include "../utility/GameFactory.hpp"
 #include "../utility/Physics.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_body.h"
 #include "box2d/b2_polygon_shape.h"
+#include "box2d/b2_world_callbacks.h"
 #include <box2d/box2d.h>
 #include <chrono>
 #include <memory>
@@ -60,8 +62,10 @@ void GameScene::eventsActive(const sf::Event& p_event) {
 void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
     Services::Ecs::set();
     static ContactListener s_contactListener(Services::Ecs::ref());
+    static ContactFilter s_contactFilter(Services::Ecs::ref());
     Services::Physics::set(b2Vec2(0, 9.8f));
     Services::Physics::ref().SetContactListener(&s_contactListener);
+    Services::Physics::ref().SetContactFilter(&s_contactFilter);
     Services::Keyboard::set();
 
     setup();

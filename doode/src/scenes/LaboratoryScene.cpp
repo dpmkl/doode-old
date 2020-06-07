@@ -20,7 +20,7 @@ void LaboratoryScene::setup() {
 
     GameFactory::createPlayer(ecs, world);
 
-    GameFactory::createPlatform(ecs, world, sf::Vector2f(0, -150), 300);
+    GameFactory::createPlatform(ecs, world, sf::Vector2f(0, 120), 0);
 }
 
 } // namespace doode
