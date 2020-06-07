@@ -17,13 +17,22 @@ constexpr f32 STRAFE_COEF = 0.8F;
 constexpr f32 STRAFE_MAX = 2.8F;
 
 struct CharacterControlComponent {
-    CharacterControlComponent(b2Body* p_body) : body(p_body), onGround(false) {}
+    CharacterControlComponent(b2Body* p_body)
+        : body(p_body), onGround(false), onLeft(false), onRight(false),
+          jumpCount(0) {}
     b2Body* body;
     bool onGround;
+    bool onLeft;
+    bool onRight;
+    u32 jumpCount;
 
     void jump() {
-        auto force = Physics::toBox2d(sf::Vector2f(0, JUMP_FORCE));
-        body->ApplyLinearImpulseToCenter(force, true);
+        if (onGround || jumpCount < 3) {
+            ++jumpCount;
+            auto force =
+                Physics::toBox2d(sf::Vector2f(0, JUMP_FORCE / jumpCount));
+            body->ApplyLinearImpulseToCenter(force, true);
+        }
     }
 
     void strafe(f32 p_val) {

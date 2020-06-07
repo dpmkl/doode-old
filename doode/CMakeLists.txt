@@ -26,6 +26,8 @@ set(SRC
     src/systems/PhysicsSystem.cpp
     src/systems/CameraFollowSystem.cpp
     src/systems/CharacterControlSystem.cpp
+    src/utility/ContactListener.cpp
+    src/utility/GameFactory.cpp
     src/utility/Maze.cpp
     src/utility/Keyboard.cpp
     src/utility/Physics.cpp

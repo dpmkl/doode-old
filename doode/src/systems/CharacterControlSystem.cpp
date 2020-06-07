@@ -11,9 +11,10 @@ void CharacterControlSystem::update(f32 /*p_delta*/, entt::registry& p_ecs) {
             if (keyboard.isPressed(sf::Keyboard::Space)) {
                 p_character.jump();
             }
-            if (keyboard.isDown(sf::Keyboard::Left)) {
+            if (keyboard.isDown(sf::Keyboard::Left) && !p_character.onLeft) {
                 p_character.strafe(-1.F);
-            } else if (keyboard.isDown(sf::Keyboard::Right)) {
+            } else if (keyboard.isDown(sf::Keyboard::Right) &&
+                       !p_character.onRight) {
                 p_character.strafe(1.0F);
             } else {
                 p_character.strafe(0.0F);

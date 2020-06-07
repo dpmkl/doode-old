@@ -6,6 +6,8 @@
 #include "../systems/CameraFollowSystem.hpp"
 #include "../systems/CharacterControlSystem.hpp"
 #include "../systems/PhysicsSystem.hpp"
+#include "../utility/ContactListener.hpp"
+#include "../utility/GameFactory.hpp"
 #include "../utility/Physics.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_body.h"
@@ -55,9 +57,10 @@ void GameScene::eventsActive(const sf::Event& p_event) {
 }
 
 void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
-
     Services::Ecs::set();
+    static ContactListener s_contactListener(Services::Ecs::ref());
     Services::Physics::set(b2Vec2(0, 9.8f));
+    Services::Physics::ref().SetContactListener(&s_contactListener);
     Services::Keyboard::set();
 
     setup();
@@ -151,45 +154,6 @@ void GameScene::createMaze(u32 p_size, u32 p_seed) {
 } // namespace doode
 
 auto GameScene::getMaze() const -> const Maze& { return m_maze; }
-
-auto GameScene::createCharacter() -> b2Body* {
-    const f32 charHeight = 48;
-    const f32 charWidth = 12;
-    const auto size = Physics::toBox2d(sf::Vector2f(charWidth, charHeight));
-    auto& world = Services::Physics::ref();
-    b2BodyDef def;
-    def.type = b2BodyType::b2_dynamicBody;
-    def.fixedRotation = true;
-    def.position = b2Vec2(0, 0);
-    def.angle = 0;
-    def.bullet = true;
-    auto body = world.CreateBody(&def);
-
-    // Torso
-    b2PolygonShape poly;
-    poly.SetAsBox(size.x, size.y / 2);
-    b2FixtureDef fixture;
-    fixture.shape = &poly;
-    fixture.density = 1;
-    body->CreateFixture(&fixture);
-
-    // Wheel
-    b2CircleShape wheel;
-    wheel.m_radius = size.x * 0.8F;
-    wheel.m_p.Set(0, size.y * 0.40F);
-    fixture.shape = &wheel;
-    body->CreateFixture(&fixture);
-
-    return body;
-}
-
-void GameScene::createPlayer() {
-    auto character = createCharacter();
-    auto& ecs = Services::Ecs::ref();
-    auto entity = ecs.create();
-    ecs.emplace<CharacterControlComponent>(entity, character);
-    ecs.emplace<CameraFollow>(entity);
-}
 
 void GameScene::createStaticBlock(const sf::Vector2f& p_position,
                                   const sf::Vector2f& p_size) {

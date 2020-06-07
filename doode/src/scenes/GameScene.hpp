@@ -36,8 +36,6 @@ protected:
     auto getMaze() const -> const Maze&;
     void createStaticBlock(const sf::Vector2f& p_position,
                            const sf::Vector2f& p_size);
-    auto createCharacter() -> b2Body*;
-    void createPlayer();
 
     static constexpr f32 WALL_WIDTH = 400.0F;
     static constexpr f32 WALL_HEIGHT = WALL_WIDTH / 48.0F;

@@ -5,8 +5,16 @@
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_math.h"
 #include <box2d/box2d.h>
+#include <entt/entt.hpp>
 
 namespace doode {
+
+enum class CollisionType { Body, Feet, SensorLeft, SensorRight };
+
+struct CollisionInfo {
+    CollisionType type;
+    entt::entity entity;
+};
 
 class Physics {
 public:
