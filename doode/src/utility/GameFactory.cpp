@@ -48,8 +48,7 @@ auto GameFactory::createCharacter(entt::entity p_entity, b2World& p_world)
     fixture.userData = &leftSensorCollisionInfo;
     fixture.isSensor = true;
     fixture.density = 0;
-    wheel.m_radius = size.x * 0.32f;
-    wheel.m_radius = size.y / 4;
+    wheel.m_radius = size.y / 3;
     auto x = size.x;
     wheel.m_p.Set(-x + (x / 2), size.y / -4);
     body->CreateFixture(&fixture);
