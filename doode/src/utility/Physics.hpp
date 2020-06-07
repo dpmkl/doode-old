@@ -1,8 +1,8 @@
 #ifndef __DOODE_PHYSICS_HPP__
 #define __DOODE_PHYSICS_HPP__
 
+#include "../Types.hpp"
 #include "SFML/System/Vector2.hpp"
-#include "Types.hpp"
 #include "box2d/b2_math.h"
 #include <box2d/box2d.h>
 

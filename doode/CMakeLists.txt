@@ -19,7 +19,6 @@ set(SRC
     src/main.cpp
     src/Engine.cpp
     src/Scene.cpp
-    src/Physics.cpp
     src/scenes/DummyScene.cpp
     src/scenes/GameScene.cpp
     src/scenes/LaboratoryScene.cpp
@@ -29,6 +28,7 @@ set(SRC
     src/systems/CharacterControlSystem.cpp
     src/utility/Maze.cpp
     src/utility/Keyboard.cpp
+    src/utility/Physics.cpp
 )
 
 set(LIBS 

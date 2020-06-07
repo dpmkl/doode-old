@@ -1,5 +1,4 @@
 #include "GameScene.hpp"
-#include "../Physics.hpp"
 #include "../Services.hpp"
 #include "../Types.hpp"
 #include "../components/CharacterControlComponent.hpp"
@@ -7,6 +6,7 @@
 #include "../systems/CameraFollowSystem.hpp"
 #include "../systems/CharacterControlSystem.hpp"
 #include "../systems/PhysicsSystem.hpp"
+#include "../utility/Physics.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_body.h"
 #include "box2d/b2_polygon_shape.h"
@@ -40,11 +40,6 @@ void GameScene::updateActive(const f32 p_delta) {
 }
 
 void GameScene::renderActive(sf::RenderTarget& p_renderTarget) {
-    // HACK
-    auto view = p_renderTarget.getView();
-    view.setCenter(0, 0);
-    p_renderTarget.setView(view);
-
     auto& ecs = Services::Ecs::ref();
     for (auto& system : m_renderSystems) {
         system->render(p_renderTarget, ecs);

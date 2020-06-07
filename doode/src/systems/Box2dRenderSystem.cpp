@@ -1,6 +1,6 @@
 #include "Box2dRenderSystem.hpp"
-#include "../Physics.hpp"
 #include "../Types.hpp"
+#include "../utility/Physics.hpp"
 #include "SFML/Config.hpp"
 #include "SFML/Graphics/CircleShape.hpp"
 #include "SFML/Graphics/Color.hpp"

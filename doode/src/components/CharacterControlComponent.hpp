@@ -1,8 +1,8 @@
 #ifndef __DOODE_INPUTCONTROLCOMPONENT_HPP__
 #define __DOODE_INPUTCONTROLCOMPONENT_HPP__
 
-#include "../Physics.hpp"
 #include "../Types.hpp"
+#include "../utility/Physics.hpp"
 #include "SFML/System/Vector2.hpp"
 #include "box2d/b2_body.h"
 #include "box2d/b2_math.h"
@@ -11,7 +11,7 @@
 
 namespace doode {
 
-constexpr f32 JUMP_FORCE = -64.0F;
+constexpr f32 JUMP_FORCE = -96.0F;
 constexpr f32 STRAFE_FORCE = 16.0F;
 constexpr f32 STRAFE_COEF = 0.8F;
 constexpr f32 STRAFE_MAX = 2.8F;
