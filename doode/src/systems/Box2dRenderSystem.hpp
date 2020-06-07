@@ -19,6 +19,8 @@ public:
     static auto b2ToSfColor(const b2Color& p_color, u8 p_alpha = 0xff)
         -> sf::Color;
 
+    auto isVisible(const b2Vec2* p_vertices, i32 p_vertexCount) -> bool;
+
     void DrawPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
                      const b2Color& p_color) override;
     void DrawSolidPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,

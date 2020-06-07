@@ -6,8 +6,12 @@
 #include "SFML/Graphics/Color.hpp"
 #include "SFML/Graphics/ConvexShape.hpp"
 #include "SFML/Graphics/PrimitiveType.hpp"
-#include "SFML/System/Vector2.hpp"
+#include "SFML/Graphics/Rect.hpp"
 #include "box2d/b2_draw.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/System/Vector2.hpp>
+#include <SFML/Window.hpp>
 #include <memory>
 
 namespace doode {
@@ -24,8 +28,28 @@ auto Box2dRenderer::b2ToSfColor(const b2Color& p_color, u8 p_alpha)
                      static_cast<u8>(p_color.b * 0xff), p_alpha);
 }
 
+auto Box2dRenderer::isVisible(const b2Vec2* p_vertices, i32 p_vertexCount)
+    -> bool {
+    auto view = m_renderTarget.getView();
+    auto center = view.getCenter();
+    auto halfX = view.getSize().x * 0.5F;
+    auto halfY = view.getSize().y * 0.5F;
+    sf::FloatRect visible(center.x - halfX, center.y - halfY, halfX * 2,
+                          halfY * 2);
+    for (auto i = 0; i < p_vertexCount; ++i) {
+        auto vertex = Physics::toSfml(p_vertices[i]);
+        if (visible.contains(vertex)) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void Box2dRenderer::DrawPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
                                 const b2Color& p_color) {
+    if (!isVisible(p_vertices, p_vertexCount)) {
+        return;
+    }
     sf::ConvexShape poly(p_vertexCount);
     sf::Vector2f center;
     for (i32 i = 0; i < p_vertexCount; ++i) {
@@ -41,6 +65,9 @@ void Box2dRenderer::DrawPolygon(const b2Vec2* p_vertices, i32 p_vertexCount,
 void Box2dRenderer::DrawSolidPolygon(const b2Vec2* p_vertices,
                                      i32 p_vertexCount,
                                      const b2Color& p_color) {
+    if (!isVisible(p_vertices, p_vertexCount)) {
+        return;
+    }
     sf::ConvexShape poly(p_vertexCount);
     sf::Vector2f center;
     for (i32 i = 0; i < p_vertexCount; ++i) {
