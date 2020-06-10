@@ -1,4 +1,5 @@
 #include "GameFactory.hpp"
+#include "../Services.hpp"
 #include "../Types.hpp"
 #include "../components/CharacterControlComponent.hpp"
 #include "../components/MovingPlatformComponent.hpp"
@@ -11,6 +12,7 @@
 #include "box2d/b2_world.h"
 #include <memory>
 #include <spdlog/spdlog.h>
+#include <string>
 
 namespace doode {
 
@@ -112,7 +114,7 @@ void GameFactory::createPlatform(entt::registry& p_ecs, b2World& p_world,
     p_ecs.emplace<PhysicsComponent>(entity, body);
     if (p_range != 0) {
         p_ecs.emplace<MovingPlatformComponent>(
-            entity, p_position, 200.0F, 100.0F, false, std::set<b2Body*>({}));
+            entity, p_position, p_range, 100.0F, false, std::set<b2Body*>({}));
     }
 } // namespace doode
 
@@ -139,8 +141,6 @@ auto GameFactory::createMaze(u32 p_size, u32 p_seed, b2World& p_world) -> Maze {
             const auto yOffset = row * WALL_WIDTH;
             const auto center =
                 sf::Vector2f(x + xOffset + half, y + yOffset + half);
-            // createStaticBlock(center, sf::Vector2f(WALL_HEIGHT, WALL_HEIGHT),
-            //                   p_world);
 
             // north
             if (row != 0 && maze.has(col, row, Maze::NORTH) &&
@@ -179,6 +179,40 @@ auto GameFactory::createMaze(u32 p_size, u32 p_seed, b2World& p_world) -> Maze {
     }
 
     spdlog::info("Created " + std::to_string(count) + " platforms");
+
+    for (u32 col = 0; col < p_size; ++col) {
+        for (u32 row = 0; row < p_size - 1; ++row) {
+            u32 start = row;
+            u32 curr = row;
+            u32 next = curr + 1;
+            while (!maze.has(col, curr, Maze::SOUTH) &&
+                   !maze.has(col, next, Maze::NORTH)) {
+                ++curr;
+                ++next;
+            }
+            u32 count = curr - start;
+            if (count > 0) {
+                spdlog::info("Elevator at " + std::to_string(col) + "/" +
+                             std::to_string(start) + " to " +
+                             std::to_string(start + count) + " len " +
+                             std::to_string(count));
+                const auto xOffset = col * WALL_WIDTH;
+                const auto yOffset = start * WALL_WIDTH;
+                const auto center =
+                    sf::Vector2f(x + xOffset + half, y + yOffset + half);
+                const f32 bounds = 80.0F;
+                // auto len = count > 1 ?
+                auto len = (game::WALL_WIDTH * count) + (game::WALL_WIDTH / 2);
+                createPlatform(
+                    Services::Ecs::ref(), p_world,
+                    sf::Vector2f(center.x,
+                                 center.y - (game::WALL_WIDTH / 2 - bounds)),
+                    len);
+            }
+
+            row = start + count;
+        }
+    }
 
     createStaticBlock(sf::Vector2f(0, size * -0.5F),
                       sf::Vector2f(size + (1 * WALL_HEIGHT), WALL_HEIGHT),

@@ -28,6 +28,10 @@ public:
 
     auto render() const -> sf::Image;
 
+    auto getWidth() const -> u32;
+
+    auto getHeight() const -> u32;
+
 private:
     void unset(u32 p_x, u32 p_y, u8 p_cell);
     u32 m_width;

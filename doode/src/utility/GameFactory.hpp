@@ -26,6 +26,7 @@ public:
     static void createPlatform(entt::registry& p_ecs, b2World& p_world,
                                const sf::Vector2f& p_position, f32 p_range);
     static auto createMaze(u32 p_size, u32 p_seed, b2World& p_world) -> Maze;
+    static void createElevators(const Maze& p_maze);
 };
 
 } // namespace doode

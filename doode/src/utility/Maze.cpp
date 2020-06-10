@@ -112,4 +112,8 @@ void Maze::unset(u32 p_x, u32 p_y, u8 p_cell) {
     m_cells[p_y * m_width + p_x] = at(p_x, p_y) & ~static_cast<u8>(p_cell);
 }
 
+auto Maze::getWidth() const -> u32 { return m_width; }
+
+auto Maze::getHeight() const -> u32 { return m_height; }
+
 } // namespace doode
