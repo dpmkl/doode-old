@@ -10,10 +10,10 @@
 namespace doode {
 
 struct MovingPlatformComponent {
+    sf::Vector2f top;
+    f32 size;
     f32 unitsPerSecond;
-    bool direction;
-    sf::Vector2f upper;
-    sf::Vector2f lower;
+    bool upwards;
     std::set<b2Body*> occupants;
 };
 

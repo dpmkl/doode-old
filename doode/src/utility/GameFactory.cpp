@@ -111,10 +111,8 @@ void GameFactory::createPlatform(entt::registry& p_ecs, b2World& p_world,
             new CollisionInfo{CollisionType::Platform, entity, "platform"});
     p_ecs.emplace<PhysicsComponent>(entity, body);
     if (p_range != 0) {
-        auto upper = p_position;
-        auto lower = p_position + sf::Vector2f(0, p_range);
-        p_ecs.emplace<MovingPlatformComponent>(entity, 200.0F, true, upper,
-                                               lower, std::set<b2Body*>({}));
+        p_ecs.emplace<MovingPlatformComponent>(
+            entity, p_position, 200.0F, 100.0F, false, std::set<b2Body*>({}));
     }
 } // namespace doode
 
