@@ -21,27 +21,20 @@ constexpr f32 STRAFE_MAX = 2.8F;
 
 struct CharacterControlComponent {
     CharacterControlComponent(b2Body* p_body)
-        : body(p_body), onGround(false), onLeft(false), onRight(false),
-          dropping(false), jumpCount(0), onPlatform(false) {}
+        : body(p_body), onGround(0), onLeft(false), onRight(false),
+          dropping(false), jumpCount(0) {}
     b2Body* body;
-    bool onGround;
+    i32 onGround;
     bool onLeft;
     bool onRight;
     bool dropping;
     u32 jumpCount;
-    bool onPlatform;
-
-    void setOnGround() {
-        onGround = true;
-        dropping = false;
-        jumpCount = 0;
-        spdlog::info("On ground");
-    }
+ 
 
     void jump() {
-        spdlog::info("Jumping: " + std::to_string(onGround) + " " +
+        spdlog::info("Jumping: " + std::to_string(onGround > 0) + " " +
                      std::to_string(jumpCount));
-        if (onGround && jumpCount < 3) {
+        if (onGround > 0 && jumpCount < 3) {
             ++jumpCount;
             auto force =
                 Physics::toBox2d(sf::Vector2f(0, JUMP_FORCE / jumpCount));
@@ -50,7 +43,7 @@ struct CharacterControlComponent {
     }
 
     void drop() {
-        if (!dropping && onGround && onPlatform) {
+        if (!dropping && onGround > 0) {
             auto pos = Physics::toSfml(body->GetPosition());
             pos.y += game::WALL_HEIGHT * 2;
             body->SetTransform(Physics::toBox2d(pos), 0);

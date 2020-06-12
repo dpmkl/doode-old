@@ -70,11 +70,10 @@ void ContactListener::handlePlatforms(CollisionInfo* p_infoA,
         auto& character =
             m_ecs.get<CharacterControlComponent>(characterInfo->entity);
         if (p_value) {
-            character.setOnGround();
-            character.onPlatform = true;
+            ++character.onGround;
+            character.jumpCount = 0;
         } else {
-            character.onGround = false;
-            character.onPlatform = false;
+            --character.onGround;            
         }
 
         if (m_ecs.has<MovingPlatformComponent>(platformInfo->entity)) {
@@ -96,9 +95,11 @@ void ContactListener::handleCharacter(CollisionInfo* p_info, bool p_value) {
     } else if (p_info->type == CollisionType::SensorRight) {
         character.onRight = p_value;
     } else if (p_info->type == CollisionType::Feet) {
-        character.onGround = p_value;
         if (p_value) {
-            character.setOnGround();
+            ++character.onGround;
+            character.jumpCount = 0;
+        } else {
+            --character.onGround;
         }
     }
 }

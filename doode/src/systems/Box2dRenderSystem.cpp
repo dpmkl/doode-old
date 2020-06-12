@@ -19,6 +19,7 @@ namespace doode {
 Box2dRenderer::Box2dRenderer(sf::RenderTarget& p_renderTarget)
     : m_renderTarget(p_renderTarget) {
     Services::Physics::ref().SetDebugDraw(this);
+    SetFlags(e_shapeBit | e_jointBit | e_aabbBit | e_pairBit | e_centerOfMassBit);
 }
 
 auto Box2dRenderer::b2ToSfColor(const b2Color& p_color, u8 p_alpha)

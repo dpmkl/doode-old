@@ -1,6 +1,7 @@
 #include "CharacterControlSystem.hpp"
 #include "../Services.hpp"
 #include "../components/CharacterControlComponent.hpp"
+#include <spdlog/spdlog.h>
 
 namespace doode {
 
@@ -29,6 +30,7 @@ void CharacterControlSystem::update(f32 /*p_delta*/, entt::registry& p_ecs) {
                 p_character.dropping = false;
             }
         });
+    
 }
 
 } // namespace doode
