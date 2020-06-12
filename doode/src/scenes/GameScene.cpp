@@ -67,6 +67,7 @@ void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
     Services::Physics::ref().SetContactListener(&s_contactListener);
     Services::Physics::ref().SetContactFilter(&s_contactFilter);
     Services::Keyboard::set();
+    Services::Random::set();
 
     setup();
     setReady();

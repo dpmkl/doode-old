@@ -33,6 +33,7 @@ set(SRC
     src/utility/Maze.cpp
     src/utility/Keyboard.cpp
     src/utility/Physics.cpp
+    src/utility/Random.cpp
 )
 
 set(LIBS 
