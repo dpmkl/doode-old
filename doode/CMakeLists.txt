@@ -48,9 +48,9 @@ set(LIBS
 add_executable(doode ${SRC})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
+#    target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
 else(CMAKE_BUILD_TYPE STREQUAL "Release")
-    target_compile_options(doode PUBLIC -Wall -Wextra -Wpedantic)
+#    target_compile_options(doode PUBLIC -Wall -Wextra -Wpedantic)
 endif(CMAKE_BUILD_TYPE STREQUAL "Release")
 
 target_link_libraries(doode ${LIBS})

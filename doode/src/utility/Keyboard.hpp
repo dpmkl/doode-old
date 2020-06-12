@@ -5,6 +5,7 @@
 #include "SFML/Window/Keyboard.hpp"
 #include <SFML/Main.hpp>
 #include <unordered_map>
+#include <array>
 
 namespace doode {
 

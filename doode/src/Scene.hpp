@@ -10,6 +10,7 @@
 #include <mutex>
 #include <thread>
 #include <variant>
+#include <optional>
 
 namespace doode {
 
