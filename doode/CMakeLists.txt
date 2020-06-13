@@ -30,6 +30,7 @@ set(SRC
     src/utility/ContactFilter.cpp
     src/utility/ContactListener.cpp
     src/utility/GameFactory.cpp
+    src/utility/Gamepad.cpp
     src/utility/Maze.cpp
     src/utility/Keyboard.cpp
     src/utility/Physics.cpp

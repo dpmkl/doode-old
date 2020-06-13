@@ -42,6 +42,7 @@ void GameScene::updateActive(const f32 p_delta) {
         system->update(p_delta, ecs);
     }
     Services::Keyboard::ref().swap();
+    Services::Gamepad::ref().update();
 }
 
 void GameScene::renderActive(sf::RenderTarget& p_renderTarget) {
@@ -67,6 +68,7 @@ void GameScene::prepareProc(std::unique_ptr<SceneContext> /*p_context*/) {
     Services::Physics::ref().SetContactListener(&s_contactListener);
     Services::Physics::ref().SetContactFilter(&s_contactFilter);
     Services::Keyboard::set();
+    Services::Gamepad::set();
     Services::Random::set();
 
     setup();
