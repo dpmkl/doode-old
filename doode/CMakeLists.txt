@@ -15,6 +15,35 @@ include_directories(
 
 link_directories(CMAKE_LIBRARY_OUTPUT_DIRECTORY)
 
+set(HDR
+    src/Engine.hpp
+    src/Types.hpp
+    src/Scene.hpp
+    src/Services.hpp
+    src/systems/Box2dRenderSystem.hpp
+    src/systems/MovingPlatformSystem.hpp
+    src/systems/CharacterControlSystem.hpp
+    src/systems/SystemBase.hpp
+    src/systems/CameraFollowSystem.hpp
+    src/systems/PhysicsSystem.hpp
+    src/scenes/GameScene.hpp
+    src/scenes/DummyScene.hpp
+    src/scenes/LaboratoryScene.hpp
+    src/utility/ContactListener.hpp
+    src/utility/ContactFilter.hpp
+    src/utility/GameFactory.hpp
+    src/utility/Gamepad.hpp
+    src/utility/Physics.hpp
+    src/utility/Keyboard.hpp
+    src/utility/Maze.hpp
+    src/utility/Random.hpp
+    src/components/CollisionResponseComponent.hpp
+    src/components/Tags.hpp
+    src/components/PhysicsComponent.hpp
+    src/components/CharacterControlComponent.hpp
+    src/components/MovingPlatformComponent.hpp
+)
+
 set(SRC 
     src/main.cpp
     src/Engine.cpp
@@ -37,6 +66,8 @@ set(SRC
     src/utility/Random.cpp
 )
 
+#list(APPEND SRC ${HDR})
+
 set(LIBS 
     sfml-graphics
     sfml-system
@@ -47,7 +78,7 @@ set(LIBS
 
 
 
-add_executable(doode ${SRC})
+add_executable(doode ${SRC} ${HDR})
 
 if(CMAKE_BUILD_TYPE STREQUAL "Release")
 #    target_compile_options(doode PUBLIC -Wall -Wextra -Werror -Wpedantic)
